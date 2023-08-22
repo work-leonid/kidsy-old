@@ -3,7 +3,11 @@ class JournalItemsController < ApplicationController
 
   # GET /journal_items or /journal_items.json
   def index
-    @pagy, @journal_items = pagy JournalItem.order("published_at DESC NULLS LAST")
+    if params[:tag].present?
+      @journal_items = JournalItem.tagged_with(params[:tag])
+    else
+      @pagy, @journal_items = pagy JournalItem.order("published_at DESC NULLS LAST")
+    end
   end
 
   # GET /journal_items/1 or /journal_items/1.json
@@ -65,6 +69,6 @@ class JournalItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def journal_item_params
-      params.require(:journal_item).permit(:body, :published_at, :title, pictures: [])
+      params.require(:journal_item).permit(:body, :published_at, :title, :tag_list, pictures: [])
     end
 end

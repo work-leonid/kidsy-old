@@ -75,3 +75,4 @@ group :test do
 end
 
 gem 'pagy', '~> 6.0' # omit patch digit
+gem 'acts-as-taggable-on', '~> 9.0'

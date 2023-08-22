@@ -21,6 +21,12 @@
     <%= form.file_field :pictures, multiple: true %>
   </div>
 
+<div>
+  <%= form.label "Tags" %>
+  <%= form.text_field :tag_list, value: @journal_item.send(:tag_list).to_s, placeholder: 'rails, development' %>
+  <%#= form.select :tag_list, ActsAsTaggableOn::Tag.pluck(:name, :id), {}, { multiple: true, data: { controller: 'slim', slim_target: 'field', class: "w-full bg-red-100" } } %>
+</div>
+
   <div class="my-5">
     <%= form.label :published_at %>
     <%= form.date_field :published_at, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>

@@ -1,5 +1,6 @@
 class JournalItem < ApplicationRecord
   has_many_attached :pictures
+  acts_as_taggable_on :tags
 
   scope :search, ->(query) {
     return if query.blank?

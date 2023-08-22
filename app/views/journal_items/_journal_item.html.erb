@@ -13,6 +13,14 @@
     <%= journal_item.body %>
   </p>
 
+<div>
+  <% journal_item.tag_list.each do |tag| %>
+    <%= link_to journal_items_path(tag: tag), class: "tag-link" do %>
+      <%= tag %>
+    <% end %>
+  <% end %>
+</div>
+
   <p class="my-5">
     <%= journal_item.published_at %>
   </p>
