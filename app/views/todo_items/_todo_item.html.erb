@@ -1,22 +1,22 @@
-<div id="<%= dom_id todo_item %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
+<div id="<%= dom_id todo_item %>" class="flex gap-8 justify-between p-4 bg-slate-100">
+  <div>
+  <p class="my-5 text-3xl">
     <%= todo_item.title %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Body:</strong>
+  <p class="my-2">
     <%= todo_item.body %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Competed:</strong>
     <%= todo_item.competed %>
   </p>
+  </div>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this todo item", todo_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this todo item', edit_todo_item_path(todo_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <div>
+    <%#= link_to "Show", todo_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit', edit_todo_item_path(todo_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
   <% end %>
 </div>

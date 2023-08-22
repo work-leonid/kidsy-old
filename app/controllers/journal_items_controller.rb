@@ -1,4 +1,5 @@
 class JournalItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_journal_item, only: %i[ show edit update destroy ]
 
   # GET /journal_items or /journal_items.json
@@ -25,7 +26,8 @@ class JournalItemsController < ApplicationController
 
     respond_to do |format|
       if @journal_item.save
-        format.html { redirect_to journal_item_url(@journal_item), notice: "Journal item was successfully created." }
+        format.html { redirect_to journal_items_path, notice: "Journal item was successfully created." }
+#        format.html { redirect_to journal_item_url(@journal_item), notice: "Journal item was successfully created." }
         format.json { render :show, status: :created, location: @journal_item }
       else
         format.html { render :new, status: :unprocessable_entity }
