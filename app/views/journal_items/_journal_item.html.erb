@@ -1,0 +1,30 @@
+<div id="<%= dom_id journal_item %>">
+
+  <% unless journal_item.pictures.empty? %>
+    <div class="flex bg-red-100 w-full gap-4 overflow-x-scroll">
+      <% journal_item.pictures.each do |picture| %>
+        <%= link_to image_tag(journal_item.pictures_as_thumbnail(picture)), picture, class: "w-full" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Body:</strong>
+    <%= journal_item.body %>
+  </p>
+
+  <p class="my-5">
+    <%= journal_item.published_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= journal_item.title %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this journal item", journal_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this journal item', edit_journal_item_path(journal_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
