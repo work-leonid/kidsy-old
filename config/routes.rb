@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   resources :todo_items
   resources :journal_items
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
+  devise_scope :user do
+    get 'users/account', to: 'users/registrations#account', as: :user_account
+  end
 
   # Defines the root path route ("/")
   #root "journal_items#index"

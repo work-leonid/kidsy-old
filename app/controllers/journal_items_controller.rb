@@ -5,6 +5,16 @@ class JournalItemsController < ApplicationController
   # GET /journal_items or /journal_items.json
   def index
     @pagy, @journal_items = pagy JournalItem.order("published_at DESC NULLS LAST")
+
+if params[:month].present?
+    selected_month = params[:month].to_i
+    @journal_items = @journal_items.where("EXTRACT(MONTH FROM published_at ) = ?", selected_month)
+@current_month_name = Date::MONTHNAMES[selected_month]
+  elsif Time.now
+    current_month = Time.now.month
+    @journal_items = @journal_items.where("EXTRACT(MONTH FROM published_at ) = ?", current_month)
+@current_month_name = Date::MONTHNAMES[current_month]
+  end
   end
 
   # GET /journal_items/1 or /journal_items/1.json
@@ -14,6 +24,7 @@ class JournalItemsController < ApplicationController
   # GET /journal_items/new
   def new
     @journal_item = JournalItem.new
+    render layout: "layouts/full"
   end
 
   # GET /journal_items/1/edit

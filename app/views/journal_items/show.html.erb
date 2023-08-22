@@ -1,15 +1,18 @@
 <div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+  <div class="mx-auto w-full">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
     <%= render @journal_item %>
 
-    <%= link_to 'Edit this journal_item', edit_journal_item_path(@journal_item), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this journal_item', journal_item_path(@journal_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to journal_items', journal_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="flex justify-between gap-2">
+      <div class="flex gap-2">
+    <%= link_to raw('&larr;'), journal_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit', edit_journal_item_path(@journal_item), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </div>
+
+      <%= button_to 'Destroy', journal_item_path(@journal_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
   </div>
 </div>
