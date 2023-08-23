@@ -36,6 +36,6 @@
 
   <div class="flex justify-between mt-8 gap-8">
     <%= link_to raw('&larr; Back'), journal_items_path, class: "py-4 px-5 hover:text-purple-500 durateion-300 transition-all font-medium" %>
-    <%= form.submit 'Our memory', class: "rounded-xl py-4 px-8 bg-purple-500 hover:bg-purple-600 transition-all duration-300 text-white inline-flex font-medium cursor-pointer" %>
+<%= form.submit(action_name == "edit" ? "Update" : "Create", class: "rounded-xl py-4 px-8 bg-purple-500 hover:bg-purple-600 transition-all duration-300 text-white inline-flex font-medium cursor-pointer") %>
   </div>
 <% end %>
