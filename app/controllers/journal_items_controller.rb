@@ -51,7 +51,7 @@ if params[:month].present?
   def update
     respond_to do |format|
       if @journal_item.update(journal_item_params)
-        format.html { redirect_to journal_item_url(@journal_item), notice: "Journal item was successfully updated." }
+        format.html { redirect_to journal_items_path, notice: "Journal item was successfully updated." }
         format.json { render :show, status: :ok, location: @journal_item }
       else
         format.html { render :edit, status: :unprocessable_entity }
