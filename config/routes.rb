@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/affirmations', to: 'static#affirmations'
+
   devise_for :users
 
   resources :todo_items

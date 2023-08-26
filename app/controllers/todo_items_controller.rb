@@ -2,6 +2,8 @@ class TodoItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo_item, only: %i[ show edit update destroy ]
 
+  layout 'app' 
+
   # GET /todo_items or /todo_items.json
   def index
     @todo_items = TodoItem.all

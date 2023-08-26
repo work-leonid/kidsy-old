@@ -2,6 +2,8 @@ class JournalItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_journal_item, only: %i[ show edit update destroy ]
 
+  layout 'app' 
+
   # GET /journal_items or /journal_items.json
   def index
     @pagy, @journal_items = pagy JournalItem.order("published_at DESC NULLS LAST")

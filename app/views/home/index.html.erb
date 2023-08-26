@@ -1,4 +1,12 @@
-<div>
-<h1 clas="text-6xl">Home</h1>
+<main class="max-w-7xl mx-auto">
 
-</div>
+  <nav class="flex py-6 justify-between">
+    <%= link_to "Kidsy", root_path %>
+    <div class="flex gap-4">
+    <%= link_to "Login", new_user_session_path %>
+    <%= link_to "Sign up", new_user_registration_path %>
+    </div>
+  </nav>
+
+  <h1>Kidsy home</h1>
+</main>
