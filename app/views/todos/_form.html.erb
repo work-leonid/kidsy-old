@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+<div class="field">
+    <%= form.label :due_date %>
+    <%= form.date_field :due_date %>
+  </div>
+
   <div class="mb-2">
     <%= form.label :title, class: "sr-only" %>
     <%= form.text_field :title, autofocus: true, placeholder: "Title", class: "placeholer:text-zinc-400 border-0 rounded-md w-full p-0 focus:ring-0 focus:border-0 ring-0 bg-transparent text-xl focus:outline-none  " %>
@@ -26,7 +31,7 @@
     <div class="mt-2 ">
     <%= form.submit class: "rounded-full text-white hover:bg-orange-600 cursor-pointer font-medium bg-orange-500 px-8 py-2" %>
 
-    <%= link_to "Close", todos_path, class: "rounded-full  font-medium hover:opacity-60 bg-[#EADED0] px-8 py-2" %>
+    <%= link_to "Back", todos_path, class: "rounded-full  font-medium hover:opacity-60 bg-[#EADED0] px-8 py-2" %>
     </div>
 
     <div class="flex gap-4">

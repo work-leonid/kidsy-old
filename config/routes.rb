@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :todos do
     patch :change_status, on: :member
+    patch :update_to_today, on: :member
+    patch :not_to_today, on: :member
+    patch :update_to_tomorrow, on: :member
   end
 
   get '/affirmations', to: 'static#affirmations'

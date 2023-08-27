@@ -1,39 +1,51 @@
 <div id="<%= "#{dom_id(todo)}_container" %>">
-  <%= turbo_frame_tag dom_id(todo) do %>
-    <div class="flex p-5 rounded-2xl bg-white  relative justify-between items-start space-x-2">
-      <% if todo.complete? %>
-        <%= button_to change_status_todo_path(todo, todo: { status: 'incomplete' }), class: "bg-green-600 px-4 py-2 rounded hover:bg-green-700", method: :patch do %>
-          <span class="sr-only">Mark as incomplete</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-        <% end %>
-
-        <%= link_to todo.title, edit_todo_path(todo), class: todo.complete? ? 'line-through' : '' %>
-        <p><%= todo.description  %></p>
-      <% else %>
-
-        <div class="flex flex-col gap-0 w-full">
-      <%= link_to  edit_todo_path(todo), class: "" do %>
-          <%= todo.title %>
-          <p class="text-lg opacity-70 leading-tight"><%= todo.description  %></p>
+  <div class="flex p-5 rounded-2xl bg-white  relative justify-between items-start space-x-2">
+    <% if todo.complete? %>
+      <%= button_to change_status_todo_path(todo, todo: { status: 'incomplete' }), class: "bg-green-600 px-4 py-2 rounded hover:bg-green-700", method: :patch do %>
+        <span class="sr-only">Mark as incomplete</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
       <% end %>
 
-      <div class='flex gap-2 justify-between mt-4  w-full'>
-          <%= button_to change_status_todo_path(todo, todo: { status: 'complete' }), class: "ring-1 ring-[#427A74]/30 hover:ring-[#427A74] text-[#427A74] transition-all duration-300 hover:bg-[#427A74] text-white rounded-full text-base px-8 hover:text-white py-1.5 text-medium inline-block ", method: :patch do %>
+      <%= link_to todo.title, edit_todo_path(todo), class: todo.complete? ? 'line-through' : '' %>
+      <p><%= todo.description  %></p>
+    <% else %>
+
+      <div class="flex flex-col gap-0 w-full">
+        <%= link_to  edit_todo_path(todo), class: "" do %>
+
+          <% if todo.due_date.present? %>
+            <p class="text-sm opacity-70 mb-8"><%= todo.due_date.strftime('%B %e') %></p>
+          <% end %>
+          <%= todo.title %>
+          <p class="text-lg opacity-70 leading-tight"><%= todo.description  %></p>
+        <% end %>
+
+        <div class='flex gap-2 justify-between mt-4  w-full'>
+
+          <%= button_to change_status_todo_path(todo, todo: { status: 'complete' }), class: "ring-1 ring-[#427A74]/30 hover:ring-[#427A74] text-[#427A74] transition-all duration-300 hover:bg-[#427A74] rounded-full text-base px-8 hover:text-white py-1.5 text-medium inline-block ", method: :patch do %>
             <span class="sr-only">Mark as complete</span>
             <div>Done</div>
           <% end %>
 
           <div class="flex gap-2">
-          <%= button_to "Today", change_status_todo_path(todo, todo: { status: 'complete' }), class: "px-6 py-1.5 ring-1 hover:bg-[#FAF4EC] ring-zinc-400/60 rounded-full text-base" %>
-          <%= button_to "Tomorrow", change_status_todo_path(todo, todo: { status: 'complete' }), class: "px-6 py-1.5 ring-1 hover:bg-[#FAF4EC] ring-zinc-400/60 rounded-full text-base" %>
+
+            <% if todo.due_date.present? && todo.due_date.today? %>
+              <%= button_to "Someday", not_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-1.5 ring-1 hover:bg-[#FAF4EC] ring-zinc-400/60 rounded-full text-base" %>
+              <%= button_to "Tomorrow", update_to_tomorrow_todo_path(todo), method: :patch, remote: true, class: "px-6 py-1.5 ring-1 hover:bg-[#FAF4EC] ring-zinc-400/60 rounded-full text-base" %>
+            <% else %>
+              <% if (todo.due_date.present?  && !todo.due_date.today?) || todo.due_date.nil? %>
+                <%= button_to "Today", update_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-1.5 ring-1 hover:bg-[#FAF4EC] ring-zinc-400/60 rounded-full text-base" %>
+                <%= button_to "Tomorrow", update_to_tomorrow_todo_path(todo), method: :patch, remote: true, class: "px-6 py-1.5 ring-1 hover:bg-[#FAF4EC] ring-zinc-400/60 rounded-full text-base" %>
+              <% end %>
+            <% end %>
+
           </div>
 
         </div>
-        </div>
-      <% end %>
+      </div>
+    <% end %>
 
-    </div>
-  <% end %>
+  </div>
 </div>
