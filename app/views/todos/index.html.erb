@@ -1,6 +1,6 @@
 <div class="">
-  <%= turbo_frame_tag "todos-container", class: "block max-w-4xl mx-auto w-full " do %>
-    <div class="flex justify-between w-full">
+  <%= turbo_frame_tag "todos-container", class: "block max-w-5xl mx-auto w-full " do %>
+    <div class="flex justify-between mb-8 w-full">
       <div class="flex gap-4">
           <%= link_to "Incomplete",
             todos_path(status: "incomplete"),
@@ -15,7 +15,7 @@
     </div>
     <% unless params[:status] == "complete" %>
 
-      <details class="flex mb-4  w-full" >
+      <details class="flex mb-4 hidden w-full" >
         <%= render "form", todo: Todo.new %>
         <summary class="list-summary cursor-pointer font-medium my-4">
           <p>New Task</p>
@@ -23,8 +23,16 @@
       </details>
 
     <% end %>
-    <div id="todos" class="flex flex-col gap-2">
+
+    <div class="flex gap-8">
+
+      <div class="w-1/3">
+        August
+      </div>
+    <div id="todos" class="flex flex-1 flex-col gap-2">
+
       <%= render @todos %>
+    </div>
     </div>
   <% end %>
 </div>
