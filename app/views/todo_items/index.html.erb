@@ -4,9 +4,10 @@
   <% end %>
 
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Todo items</h1>
-    <%= link_to 'New todo item', new_todo_item_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <h1 class="font-bold text-4xl">Todo items</h1>
+
+  <div>
+    <%= render "form", todo_item: TodoItem.new %>
   </div>
 
   <div id="todo_items" class="min-w-full">

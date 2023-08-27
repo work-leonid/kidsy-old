@@ -28,11 +28,12 @@ class TodoItemsController < ApplicationController
 
     respond_to do |format|
       if @todo_item.save
+        format.turbo_stream
         format.html { redirect_to todo_item_url(@todo_item), notice: "Todo item was successfully created." }
         format.json { render :show, status: :created, location: @todo_item }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo_item)}_form", partial: "form", locals: { todo_item: @todo_item }) }
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @todo_item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,9 +42,11 @@ class TodoItemsController < ApplicationController
   def update
     respond_to do |format|
       if @todo_item.update(todo_item_params)
+        format.turbo_stream
         format.html { redirect_to todo_item_url(@todo_item), notice: "Todo item was successfully updated." }
         format.json { render :show, status: :ok, location: @todo_item }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo_item)}_form", partial: "form", locals: { todo_item: @todo_item})}
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @todo_item.errors, status: :unprocessable_entity }
       end

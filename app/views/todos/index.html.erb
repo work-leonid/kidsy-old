@@ -1,0 +1,30 @@
+<div class="">
+  <%= turbo_frame_tag "todos-container", class: "block max-w-4xl mx-auto w-full " do %>
+    <div class="flex justify-between w-full">
+      <div class="flex gap-4">
+          <%= link_to "Incomplete",
+            todos_path(status: "incomplete"),
+            class: "" 
+          %>
+          <%= link_to "Complete",
+            todos_path(status: "complete"),
+            class: ""
+          %>
+      </div>
+
+    </div>
+    <% unless params[:status] == "complete" %>
+
+      <details class="flex mb-4  w-full" >
+        <%= render "form", todo: Todo.new %>
+        <summary class="list-summary cursor-pointer font-medium my-4">
+          <p>New Task</p>
+        </summary>
+      </details>
+
+    <% end %>
+    <div id="todos" class="flex flex-col gap-2">
+      <%= render @todos %>
+    </div>
+  <% end %>
+</div>

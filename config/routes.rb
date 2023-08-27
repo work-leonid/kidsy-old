@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :todos do
+    patch :change_status, on: :member
+  end
+
   get '/affirmations', to: 'static#affirmations'
 
   devise_for :users
