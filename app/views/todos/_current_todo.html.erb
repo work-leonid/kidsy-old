@@ -1,0 +1,31 @@
+<div id="<%= "#{dom_id(todo)}_container" %>">
+
+  <div class="flex rounded-3xl overflow-hidden relative ring-1 ring-black/5 bg-white">
+    <div class="flex w-full">
+      <div class=" p-8 flex-1">
+        <%= link_to  edit_todo_path(todo), class: "text-2xl hover:opacity-70 transition-all duration-200" do %>
+          <%= todo.title %>
+          <p class="text-xl opacity-70 leading-tight"><%= todo.description  %></p>
+        <% end %>
+        <div class="mt-6 flex gap-2">
+
+          <% if todo.due_date.present? && todo.due_date.today? %>
+            <%= button_to "Someday", not_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
+            <%= button_to "Tomorrow", update_to_tomorrow_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
+          <% else %>
+            <% if (todo.due_date.present?  && !todo.due_date.today?) || todo.due_date.nil? %>
+              <%= button_to "Someday", not_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
+              <%= button_to "Today", update_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
+              <%= button_to "Tomorrow", update_to_tomorrow_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
+            <% end %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center border-l duration-100 transition-all border-black/5 justify-center hover:bg-[#427A74] text-[#427A74] px-16 hover:text-white relative">
+      <%= button_to "Done", change_status_todo_path(todo, todo: { status: 'complete' }), class: "absolute inset-0  font-medium ", method: :patch %>
+    </div>
+  </div>
+</div>
+

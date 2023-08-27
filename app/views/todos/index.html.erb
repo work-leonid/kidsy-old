@@ -1,35 +1,36 @@
-<div class="flex items-center justify-between w-full mb-12">
-  <div>
-    <h1 class="text-3xl">Plans</h1>
-  </div>
+<div class="flex  items-center justify-between w-full mb-12">
+  <h1 class="text-3xl">Plans</h1>
 
-  <div class="flex bg-[#EDE3D4] px-1 py-1 rounded-full gap-1">
-    <%= link_to "Incomplete",
+  <div class="flex bg-[#EDE3D4] text-lg px-1 py-1 rounded-full gap-1">
+    <%= link_to "Active",
     todos_path(status: "incomplete"),
     class: "#{params[:status] != 'complete' ? 'bg-[#FAF4EC]' : 'bg-[#EDE3D4]'} flex-1 px-8 rounded-full py-2" %>
   <%= link_to "Complete",
     todos_path(status: "complete"),
     class: "#{params[:status] == 'complete' ? 'bg-[#FAF4EC]' : 'bg-[#EDE3D4]'} flex-1 px-8 rounded-full py-2" %>
   </div>
-
 </div>
 
-
-<div class="flex pb-32 gap-16">
+<div class="flex pb-32 gap-12">
   <div class="w-1/2">
-    <h2 class="text-2xl mb-8 font-light">Today, <%= Date.current.strftime("%B %d") %></h2>
-    <div class="flex flex-col gap-4">
-      <%= render @today_todos %>
-    </div>
+    <% if @today_todos.any? %>
+      <h2 class="text-2xl mb-4">Today, <%= Date.current.strftime("%B %d") %></h2>
+      <div class="flex flex-col mb-12 gap-4">
+        <%= render partial: "current_todo", collection: @today_todos, as: :todo %>
+      </div>
+    <% end %>
 
-    <h2 class="text-2xl mt-12 mb-8 font-light">Tomorrow, <%= Date.tomorrow.strftime("%B %d") %></h2>
-    <div class="flex flex-col gap-4">
-      <%= render @all_not_today_and_tomorrow %>
-    </div>
+    <% if @all_not_today_and_tomorrow.any? %>
+      <h2 class="text-2xl mb-4">Tomorrow, <%= Date.tomorrow.strftime("%B %d") %></h2>
+      <div class="flex flex-col gap-4">
+        <%= render partial: "current_todo", collection: @all_not_today_and_tomorrow, as: :todo %>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="w-1/2">
-    <h2 class="text-2xl mb-8 font-light">All Tasks</h2>
+    <h2 class="text-2xl mb-4">All Tasks</h2>
     <div id="todos" class="flex flex-1 flex-col gap-2">
       <%= render @all_not_today %>
     </div>
@@ -38,4 +39,4 @@
 </div>
 
 
-<%= link_to "New Task", new_todo_path, class: "hover:bg-orange-600 transition-all duration-300 px-16 fixed bottom-8 left-1/2 -translate-x-1/2 bg-orange-500 text-white font-medium rounded-full text-center py-3 " %>
+<%= link_to "New Task", new_todo_path, data: { turbo_frame: :modal }, class: "hover:bg-orange-600 transition-all duration-300 px-16 fixed bottom-8 left-1/2 -translate-x-1/2 bg-orange-500 text-white font-medium rounded-full text-center py-3 " %>

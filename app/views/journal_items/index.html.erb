@@ -1,4 +1,4 @@
-<%= content_for :subnav do %>
+<div>
   <% I18n.t("date.month_names").compact.each_with_index do |month, index| %>
     <%= link_to month, journal_items_path(month: index + 1), class: "text-base hover:text-purple-500" %>
   <% end %>
@@ -6,7 +6,7 @@
   <% unless params[:month].blank? || params[:month].to_i == Date.today.month %>
     <%= link_to "Today", journal_items_path, class: "text-lg bg-purple-200 fixed bottom-8 right-8 w-fit self-end px-8 py-1.5 mt-8 text-purple-500 rounded-full hover:text-purple-700" %>
   <% end %>
-<% end %>
+</div>
 
 <div class="max-w-4xl pt-8 mx-auto pb-40">
   <h1 class="mb-10  text-2xl">Best moments from <span class=""><%= @current_month_name %></span></h1>
@@ -21,3 +21,5 @@
 
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+
+<%= link_to "New Moment", new_journal_item_path, class: "hover:bg-orange-600 transition-all duration-300 px-16 fixed bottom-8 left-1/2 -translate-x-1/2 bg-orange-500 text-white font-medium rounded-full text-center py-3 " %>
