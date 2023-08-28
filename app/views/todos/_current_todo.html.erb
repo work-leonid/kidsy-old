@@ -2,22 +2,17 @@
 
   <div class="flex rounded-3xl overflow-hidden relative ring-1 ring-black/5 bg-white">
     <div class="flex w-full">
-      <div class=" p-8 flex-1">
+      <div class="p-6 flex-1">
+
         <%= link_to  edit_todo_path(todo), class: "text-2xl hover:opacity-70 transition-all duration-200" do %>
           <%= todo.title %>
           <p class="text-xl opacity-70 leading-tight"><%= todo.description  %></p>
         <% end %>
         <div class="mt-6 flex gap-2">
 
-          <% if todo.due_date.present? && todo.due_date.today? %>
+          <% if todo.due_date.present? %>
             <%= button_to "Someday", not_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
             <%= button_to "Tomorrow", update_to_tomorrow_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
-          <% else %>
-            <% if (todo.due_date.present?  && !todo.due_date.today?) || todo.due_date.nil? %>
-              <%= button_to "Someday", not_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
-              <%= button_to "Today", update_to_today_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
-              <%= button_to "Tomorrow", update_to_tomorrow_todo_path(todo), method: :patch, remote: true, class: "px-6 py-2 duration-200 transition-all bg-zinc-300/20 hover:bg-zinc-300/50 rounded-full text-base" %>
-            <% end %>
           <% end %>
 
         </div>

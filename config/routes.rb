@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   end
 
   # Defines the root path route ("/")
-  #root "journal_items#index"
-  root "home#index"
+  root "todos#index"
+ # root "home#index"
 end

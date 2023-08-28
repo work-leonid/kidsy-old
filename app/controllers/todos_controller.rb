@@ -1,19 +1,16 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: %i[ show edit update destroy change_status update_to_today ]
+  before_action :set_todo, only: %i[ show edit update destroy change_status update_to_today update_to_tomorrow ]
 
   layout 'app' 
 
   # GET /todos or /todos.json
   def index
     @todos = Todo.where(status: params[:status].presence || 'incomplete').sorted_by_due_date
+
     @today_todos = Todo.where(due_date: Date.today, status: Todo.statuses[:incomplete])
 
     @all_not_today = Todo.where(status: params[:status].presence || 'incomplete')
       .where("due_date IS NULL OR due_date != ?", Date.today)
-      .sorted_by_due_date
-
-    @all_not_today_and_tomorrow = Todo.where(status: params[:status].presence || 'incomplete')
-      .where(due_date: Date.tomorrow)
       .sorted_by_due_date
   end
 
@@ -46,6 +43,7 @@ class TodosController < ApplicationController
   def update
     respond_to do |format|
       if @todo.update(todo_params)
+        
         format.html { redirect_to todos_path, notice: "Todo was successfully updated." }
         format.json { render :show, status: :ok, location: @todo }
       else
@@ -73,17 +71,21 @@ class TodosController < ApplicationController
   def update_to_today
     @todo.update(due_date: Date.today)
     respond_to do |format|
-      format.html { redirect_to todos_path, notice: "Updated todo status." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("#{helpers.dom_id(@todo)}_container") }
+      format.html { redirect_back(fallback_location: todos_path, notice: "Updated todo status.") }
     end
   end
 
-  def update_to_tomorrow
-    @todo = Todo.find(params[:id])
-    @todo.update(due_date: Date.tomorrow)
-    respond_to do |format|
-      format.html { redirect_to todos_path, notice: "Updated todo status." }
-    end
+def update_to_tomorrow
+  @todo = Todo.find(params[:id])
+  
+  tomorrow = Time.zone.tomorrow.to_date
+  @todo.update(due_date: tomorrow)
+  
+  respond_to do |format|
+    format.html { redirect_to todos_path, notice: "Updated todo status." }
   end
+end
 
   def not_to_today
     @todo = Todo.find(params[:id])

@@ -1,4 +1,4 @@
-<div>
+<div class="hidden">
   <% I18n.t("date.month_names").compact.each_with_index do |month, index| %>
     <%= link_to month, journal_items_path(month: index + 1), class: "text-base hover:text-purple-500" %>
   <% end %>
@@ -9,7 +9,6 @@
 </div>
 
 <div class="max-w-4xl pt-8 mx-auto pb-40">
-  <h1 class="mb-10  text-2xl">Best moments from <span class=""><%= @current_month_name %></span></h1>
 
   <% if @journal_items.empty? %>
     <p class="grid place-items-center h-full">Add memory about your or your beautiful family</p>

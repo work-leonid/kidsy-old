@@ -1,8 +1,13 @@
-<main class="lg:px-12 py-5">
+<main class="px-4 sm:px-6 sm:py-3 lg:px-10 py-5">
+
+    <div class="mb-8 items-center flex justify-between">
+        <%= link_to "Kidsy", todos_path %>
+        <%= yield :nav %>
+        <div></div>
+    </div>
 
     <%= render "layouts/nav/main_nav" %>
     <%= yield %>
-
 </main>
 
 <% parent_layout "base" %>
